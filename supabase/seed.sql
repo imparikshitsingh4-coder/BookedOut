@@ -1,0 +1,5 @@
+-- Intentionally empty.
+--
+-- Phase 1 ships no demo accounts or mock data: every row in a running environment
+-- should come from real sign-ups and real business creation. Add seed data here
+-- only for throwaway local experiments, never for something the app depends on.
