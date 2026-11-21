@@ -1,0 +1,62 @@
+# Local development stack for `npx supabase start`.
+# Email verification and password reset emails are captured by the local inbox
+# at http://localhost:54324 (Inbucket), so both flows are testable offline.
+
+project_id = "bookedout"
+
+[api]
+enabled = true
+port = 54321
+schemas = ["public", "graphql_public"]
+extra_search_path = ["public", "extensions"]
+max_rows = 1000
+
+[db]
+port = 54322
+shadow_port = 54320
+major_version = 17
+
+[db.seed]
+enabled = true
+sql_paths = ["./seed.sql"]
+
+[db.pooler]
+enabled = false
+
+[studio]
+enabled = true
+port = 54323
+
+[inbucket]
+enabled = true
+port = 54324
+
+[storage]
+enabled = false
+
+[auth]
+enabled = true
+site_url = "http://localhost:3000"
+additional_redirect_urls = [
+  "http://localhost:3000/auth/callback",
+  "http://localhost:3000/auth/confirm",
+  "http://localhost:3000/reset-password",
+  "http://127.0.0.1:3000/auth/callback",
+  "http://127.0.0.1:3000/auth/confirm",
+]
+jwt_expiry = 3600
+enable_signup = true
+enable_anonymous_sign_ins = false
+
+[auth.email]
+# Require confirmation locally too, so the verification flow behaves like
+# production and stays testable through the local inbox.
+enable_signup = true
+double_confirm_changes = true
+enable_confirmations = true
+
+[auth.sms]
+enable_signup = false
+
+[analytics]
+enabled = false
